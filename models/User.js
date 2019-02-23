@@ -4,10 +4,12 @@ const encryption = require('../util/encryption');
 const userSchema = new mongoose.Schema({
     username: { type: mongoose.Schema.Types.String, required: true, unique: true },
     hashedPass: { type: mongoose.Schema.Types.String, required: true },
-    firstName: { type: mongoose.Schema.Types.String },
-    lastName: { type: mongoose.Schema.Types.String },
+    firstName: { type: mongoose.Schema.Types.String ,required:true},
+    lastName: { type: mongoose.Schema.Types.String ,required:true},
     salt: { type: mongoose.Schema.Types.String, required: true },
-    roles: [{ type: mongoose.Schema.Types.String }]
+    roles: [{ type: mongoose.Schema.Types.String ,defult : 'User'}],
+    teams:[{type:mongoose.Schema.Types.ObjectId,ref:'Team'}],
+    profilePicture:{type:String, default:'https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1'}
 });
 
 userSchema.method({
@@ -26,6 +28,8 @@ User.seedAdminUser = async () => {
         const hashedPass = encryption.generateHashedPassword(salt, 'Admin');
         return User.create({
             username: 'Admin',
+            firstName: 'Admin',
+            lastName:'Admin',
             salt,
             hashedPass,
             roles: ['Admin']

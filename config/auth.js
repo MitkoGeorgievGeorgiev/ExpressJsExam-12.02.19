@@ -13,5 +13,11 @@ module.exports = {
         } else {
             res.redirect('/login');
         }
+    },isAnonymous: (req, res, next) => {
+        if (!req.isAuthenticated()) {
+            next();
+        } else {
+            res.redirect('/');
+        }
     }
 }

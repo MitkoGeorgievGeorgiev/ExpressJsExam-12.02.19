@@ -3,33 +3,48 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>My Demo Server</title>
+    <title>Projects Manager</title>
     <link href="/css/site.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <ul class="menu">
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
+    <header>
+        <ul>
+            <li><a href="/">Home</a></li>
+
+        {{#if isAdmin}}
+             <li><a href="/project/viewAdminProjects">Projects</a></li>
+            <li><a href="/team/viewAdminTeams">Teams</a></li>
+               <li><a href="/team/create">Create Team</a></li>
+            <li><a href="/project/create">Create Project</a></li>
+
+            {{else if currentUser}}
+            <li><a href="/project/userProjects">Projects</a></li>
+            <li><a href="/team/userTeams">Teams</a></li>
+           
+             
+               {{/if}}
+            <div class="right">
+                
                 {{#if currentUser}}
-                <li>{{currentUser.username}}</li>
-                <li>
+                <li>Welcome, {{currentUser.username}}!</li>
+                <li><a href="/users/profile">Profile</a></li>
+                 <li>
                     <form id="logout-form" action="/logout" method="post"></form>
                     <a href="javascript:document.getElementById('logout-form').submit()">Logout</a>
                 </li>
                 {{else}}
-                <li><a href="/login">Login</a></li>
-                <li><a href="/register">Register</a></li>
-                {{/if}}
-            </ul>
-        </header>
-        <main>
-            {{#if globalError}}
-            <span>{{globalError}}</span> {{/if}} {{{body}}}
-        </main>
-    </div>
+                <li><a href="/users/login">Login</a></li>
+                <li><a href="/users/register">Register</a></li>
+               {{/if}}
+              
+            </div>
+        </ul>
+    </header>
+   {{{body}}}
+    <footer>
+        Express Exam @SoftUni
+    </footer>
 </body>
 
 </html>

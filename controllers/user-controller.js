@@ -68,5 +68,16 @@ module.exports = {
             res.locals.globalError = e;
             res.render('users/login');
         }
+    },
+    profile:async(req,res)=>{
+        try {
+            const users=await User.find({}).populate('teams')
+            
+        res.render('users/profile',users)
+
+        } catch (error) {
+            console.log(error);
+            
+        }
     }
 };
