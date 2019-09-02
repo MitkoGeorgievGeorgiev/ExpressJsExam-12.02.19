@@ -2,12 +2,12 @@ const controllers = require('../controllers');
 
 const auth=require('./auth')
 module.exports = app => {
-    app.get('/',auth.isAnonymous, controllers.home.index);
-    app.get('/users/register',auth.isAnonymous, controllers.user.registerGet);
-    app.post('/users/register',auth.isAnonymous, controllers.user.registerPost);
+    app.get('/', controllers.home.index);
+    app.get('/users/register', controllers.user.registerGet);
+    app.post('/users/register', controllers.user.registerPost);
     app.post('/logout',auth.isAuthed, controllers.user.logout);
-    app.get('/users/login',auth.isAnonymous, controllers.user.loginGet);
-    app.post('/users/login',auth.isAnonymous, controllers.user.loginPost);
+    app.get('/users/login', controllers.user.loginGet);
+    app.post('/users/login', controllers.user.loginPost);
     app.get('/users/profile',controllers.user.profile)
 
 
